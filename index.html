@@ -3,551 +3,425 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work's Pey - Banque d'Échange</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-weight/6.4.0/css/all.min.css">
-    
+    <title>GoogleBook - L'ordinateur portable à l'ère de l'IA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* --- RÉSÉTACTION & VARIABLES --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+        :root {
+            --google-blue: #1a73e8;
+            --google-gray-dark: #202124;
+            --google-gray-light: #f8f9fa;
+            --google-gray-text: #5f6368;
+            --font-family: 'Google Sans', sans-serif;
         }
 
-        :root {
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
-            --glass-bg: rgba(255, 255, 255, 0.06);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-highlight: rgba(255, 255, 255, 0.2);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-glow: #818cf8;
-            --accent-green: #34d399;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            background: var(--bg-gradient);
-            min-height: 100vh;
+            font-family: var(--font-family);
+            color: var(--google-gray-dark);
+            background-color: #ffffff;
+            line-height: 1.5;
+        }
+
+        /* Barre de navigation */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #e0e0e0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-            color: var(--text-main);
-        }
-
-        /* --- ORBITES D'ARRIÈRE-PLAN (ANIMÉES) --- */
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: 0;
-            animation: float 12s infinite alternate ease-in-out;
-        }
-        .blob-1 {
-            top: 10%;
-            left: 15%;
-            width: 300px;
-            height: 300px;
-            background: rgba(129, 140, 248, 0.3);
-        }
-        .blob-2 {
-            bottom: 10%;
-            right: 15%;
-            width: 400px;
-            height: 400px;
-            background: rgba(192, 132, 252, 0.25);
-            animation-delay: -4s;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(30px) scale(1.1); }
-        }
-
-        /* --- CONTENEUR PRINCIPAL (GLASSMORPHISM) --- */
-        .app-container {
-            position: relative;
-            z-index: 1;
-            width: 90%;
-            max-width: 1100px;
-            height: 650px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            overflow: hidden;
-            animation: fadeIn 1s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* --- BARRE LATÉRALE (SIDEBAR) --- */
-        sidebar {
-            background: rgba(0, 0, 0, 0.2);
-            border-right: 1px solid var(--glass-border);
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
             justify-content: space-between;
+            align-items: center;
+            padding: 15px 24px;
         }
 
-        .brand {
+        .logo-area {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 1.3rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            background: linear-gradient(to right, #fff, var(--accent-glow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            gap: 8px;
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--google-gray-dark);
         }
 
-        .brand i {
-            -webkit-text-fill-color: initial;
-            color: var(--accent-glow);
-            text-shadow: 0 0 15px var(--accent-glow);
+        .logo-area span {
+            font-weight: 700;
         }
 
-        .menu-list {
+        .nav-links {
+            display: flex;
+            gap: 24px;
             list-style: none;
-            margin-top: -50px;
         }
 
-        .menu-item {
-            padding: 14px 18px;
-            border-radius: 12px;
-            margin-bottom: 8px;
+        .nav-links a {
+            text-decoration: none;
+            color: var(--google-gray-text);
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--google-blue);
+        }
+
+        .cta-btn {
+            background-color: var(--google-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-family: var(--font-family);
+            font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: var(--text-muted);
-            transition: all 0.3s ease;
+            transition: background-color 0.2s;
         }
 
-        .menu-item:hover, .menu-item.active {
-            color: var(--text-main);
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateX(5px);
+        .cta-btn:hover {
+            background-color: #1557b0;
         }
 
-        .menu-item.active {
-            border-left: 4px solid var(--accent-glow);
-            box-shadow: inset 10px 0 20px rgba(129, 140, 248, 0.05);
+        /* Section Hero (Introduction) */
+        .hero {
+            padding: 100px 24px 60px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding-top: 15px;
-            border-top: 1px solid var(--glass-border);
+        .badge {
+            background: #e8f0fe;
+            color: var(--google-blue);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 24px;
         }
 
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #818cf8, #c084fc);
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 22px;
+            color: var(--google-gray-text);
+            margin-bottom: 40px;
+        }
+
+        /* Simulation de rendu de l'appareil ou vidéo */
+        .product-showcase {
+            max-width: 1000px;
+            margin: 0 auto 80px;
+            padding: 0 24px;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #e3f2fd, #e8eaf6);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
-        }
-
-        /* --- CONTENU PRINCIPAL --- */
-        main {
-            padding: 40px;
-            display: grid;
-            grid-template-rows: auto 1fr;
-            gap: 30px;
-            overflow-y: auto;
-        }
-
-        .header-main {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .balance-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            cursor: pointer;
         }
 
-        .balance-card::before {
-            content: '';
+        .video-placeholder img {
+            width: 70%;
+            height: auto;
+            transform: translateY(20px);
+            transition: transform 0.5s ease;
+        }
+
+        .video-placeholder:hover img {
+            transform: translateY(10px) scale(1.02);
+        }
+
+        .play-icon {
             position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(129,140,248,0.2) 0%, transparent 70%);
+            background: white;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 2;
         }
 
-        .balance-amount {
-            font-size: 2.2rem;
-            font-weight: 600;
-            margin-top: 5px;
-            letter-spacing: 1px;
+        /* Section Caractéristiques (Grid) */
+        .features {
+            background-color: var(--google-gray-light);
+            padding: 80px 24px;
         }
 
-        /* --- ZONE D'ÉCHANGE (EXCHANGE SECTION) --- */
-        .exchange-grid {
+        .section-title {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+
+        .grid {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
         }
 
-        .glass-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 25px;
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .input-group {
-            position: relative;
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+        }
+
+        .card-icon {
+            font-size: 32px;
             margin-bottom: 20px;
         }
 
-        .input-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .input-wrapper {
-            display: flex;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 10px 15px;
-            transition: border 0.3s;
-        }
-
-        .input-wrapper:focus-within {
-            border-color: var(--accent-glow);
-            box-shadow: 0 0 10px rgba(129, 140, 248, 0.2);
-        }
-
-        .input-wrapper input {
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 1.1rem;
-            width: 100%;
-            outline: none;
-        }
-
-        .currency-select {
-            background: rgba(255, 255, 255, 0.05);
-            border: none;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            outline: none;
-        }
-
-        .btn-swap {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--accent-glow);
-            border: none;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: -10px auto 10px auto;
-            cursor: pointer;
-            transition: transform 0.4s;
-            box-shadow: 0 4px 15px rgba(129, 140, 248, 0.4);
-        }
-
-        .btn-swap:hover {
-            transform: rotate(180deg) scale(1.1);
-        }
-
-        .btn-action {
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: none;
-            background: linear-gradient(90deg, #818cf8, #c084fc);
-            color: white;
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
             font-weight: 500;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
         }
 
-        .btn-action:hover {
-            opacity: 0.9;
-            box-shadow: 0 8px 20px rgba(129, 140, 248, 0.3);
-            transform: translateY(-2px);
+        .card p {
+            color: var(--google-gray-text);
+            font-size: 16px;
         }
 
-        /* --- MINI HISTORIQUE --- */
-        .history-list {
-            margin-top: 15px;
+        /* Section Spécifications techniques */
+        .specs {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 0 24px;
+        }
+
+        .specs h2 {
+            font-size: 32px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .specs-table tr {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .specs-table td {
+            padding: 20px 0;
+            font-size: 16px;
+        }
+
+        .specs-table td:first-child {
+            font-weight: 500;
+            width: 30%;
+            color: var(--google-gray-dark);
+        }
+
+        .specs-table td:last-child {
+            color: var(--google-gray-text);
+        }
+
+        /* Pied de page (Footer) */
+        footer {
+            background-color: var(--google-gray-light);
+            border-top: 1px solid #e0e0e0;
+            padding: 40px 24px;
+            font-size: 13px;
+            color: var(--google-gray-text);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            gap: 24px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
-        .history-item {
+        .footer-links a {
+            text-decoration: none;
+            color: var(--google-gray-text);
+        }
+
+        .footer-links a:hover {
+            color: var(--google-gray-dark);
+        }
+
+        .footer-bottom {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px;
-            border-radius: 12px;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.03);
-            transition: background 0.3s;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 20px;
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
-        .history-item:hover {
-            background: rgba(255,255,255,0.05);
-        }
-
-        .history-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .icon-box {
-            width: 35px;
-            height: 35px;
-            border-radius: 10px;
-            background: rgba(52, 211, 153, 0.1);
-            color: var(--accent-green);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-        }
-
-        .icon-box.up {
-            background: rgba(248, 113, 113, 0.1);
-            color: #f87171;
-        }
-
-        /* --- NOTIFICATION EN CASCADE --- */
-        .notification {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(52, 211, 153, 0.9);
-            color: #0f172a;
-            padding: 12px 25px;
-            border-radius: 10px;
-            font-weight: 500;
-            backdrop-filter: blur(10px);
-            transform: translateY(-100px);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 10;
-        }
-
-        .notification.show {
-            transform: translateY(0);
-            opacity: 1;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 38px; }
+            .hero p { font-size: 18px; }
+            .nav-links { display: none; } /* Version simplifiée pour mobile */
+            .specs-table td { display: block; width: 100% !important; padding: 8px 0; }
+            .specs-table tr { padding: 12px 0; display: block; }
         }
     </style>
 </head>
 <body>
 
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-
-    <div class="notification" id="notif">Échange effectué avec succès ! ✨</div>
-
-    <div class="app-container">
-        
-        <sidebar>
-            <div class="brand">
-                <i class="fa-solid fa-wallet"></i>
-                <span>Work's Pey</span>
+    <header>
+        <div class="nav-container">
+            <div class="logo-area">
+                Google <span>Book</span>
             </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#" class="active">Présentation</a></li>
+                    <li><a href="#">Aluminium OS</a></li>
+                    <li><a href="#">Gemini Intelligence</a></li>
+                    <li><a href="#">Spécifications</a></li>
+                </ul>
+            </nav>
+            <button class="cta-btn" onclick="alert('Bientôt disponible à la précommande !')">En savoir plus</button>
+        </div>
+    </header>
 
-            <ul class="menu-list">
-                <li class="menu-item active"><i class="fa-solid fa-chart-pie"></i> Vue d'ensemble</li>
-                <li class="menu-item"><i class="fa-solid fa-arrow-right-arrow-left"></i> Échanges</li>
-                <li class="menu-item"><i class="fa-solid fa-clock-rotate-left"></i> Historique</li>
-                <li class="menu-item"><i class="fa-solid fa-gear"></i> Paramètres</li>
-            </ul>
+    <section class="hero">
+        <span class="badge">Nouveau</span>
+        <h1>L'ordinateur portable réinventé par l'IA.</h1>
+        <p>Découvrez la puissance fusionnée d'Android et de Chrome OS au sein d'Aluminium OS. Conçu de A à Z autour de l'intelligence artificielle Gemini.</p>
+    </section>
 
-            <div class="user-profile">
-                <div class="avatar">JD</div>
-                <div>
-                    <h4 style="font-size: 0.9rem; font-weight:500;">John Doe</h4>
-                    <p style="font-size: 0.75rem; color: var(--text-muted);">Compte Vérifié</p>
-                </div>
+    <section class="product-showcase">
+        <div class="video-placeholder" onclick="playVideoSimulation()">
+            <div class="play-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--google-blue)">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
             </div>
-        </sidebar>
+            <img src="https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg" alt="Google Premium Hardware Design" id="showcase-img">
+        </div>
+    </section>
 
-        <main>
-            <div class="header-main">
-                <div>
-                    <h2>Bonjour, John 👋</h2>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Ravi de vous revoir sur votre espace de change.</p>
-                </div>
+    <section class="features">
+        <div class="section-title">
+            <h2>Une expérience ultra-personnalisée et proactive</h2>
+            <p>Le GoogleBook redéfinit votre espace de travail grâce à des fonctionnalités exclusives propulsées par Gemini Intelligence.</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">🧠</div>
+                <h3>Gemini au Cœur du Système</h3>
+                <p>Une touche dédiée sur votre clavier vous permet de l'invoquer instantanément. Plus qu'un simple assistant, il anticipe vos besoins au quotidien.</p>
             </div>
-
-            <div class="balance-card">
-                <div>
-                    <span style="color: var(--text-muted); font-size: 0.85rem; uppercase; letter-spacing: 0.5px;">Solde Total Estimé</span>
-                    <div class="balance-amount">5 420,80 €</div>
-                </div>
-                <div style="text-align: right;">
-                    <span style="color: var(--accent-green); font-size: 0.9rem; font-weight: 500;">
-                        <i class="fa-solid fa-arrow-trend-up"></i> +4.2% ce mois
-                    </span>
-                </div>
+            <div class="card">
+                <div class="card-icon">✨</div>
+                <h3>Magic Pointer</h3>
+                <p>Secouez ou pointez votre curseur pour analyser instantanément ce qui est affiché à l'écran : traduction, détourage d'images ou glisser-déposer intelligent.</p>
             </div>
-
-            <div class="exchange-grid">
-                
-                <div class="glass-box">
-                    <h3 style="margin-bottom: 20px; font-weight: 500; font-size: 1.1rem;">Échange Instantané</h3>
-                    
-                    <div class="input-group">
-                        <label class="input-label">Vous vendez</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="send-amount" value="1000" placeholder="0.00">
-                            <select class="currency-select">
-                                <option>EUR (€)</option>
-                                <option>USD ($)</option>
-                                <option>GBP (£)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <button class="btn-swap" id="swap-trigger" title="Inverser les devises">
-                        <i class="fa-solid fa-arrows-rotate"></i>
-                    </button>
-
-                    <div class="input-group">
-                        <label class="input-label">Vous recevez (Estimation)</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="receive-amount" value="1080" placeholder="0.00" readonly>
-                            <select class="currency-select" id="receive-currency">
-                                <option selected>USD ($)</option>
-                                <option>EUR (€)</option>
-                                <option>GBP (£)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <button class="btn-action" id="btn-exchange">Confirmer le change</button>
-                </div>
-
-                <div class="glass-box">
-                    <h3 style="margin-bottom: 15px; font-weight: 500; font-size: 1.1rem;">Flux récents</h3>
-                    
-                    <div class="history-list">
-                        <div class="history-item">
-                            <div class="history-info">
-                                <div class="icon-box"><i class="fa-solid fa-arrow-down"></i></div>
-                                <div>
-                                    <p style="font-size: 0.9rem; font-weight:500;">Reçu USD</p>
-                                    <p style="font-size: 0.75rem; color: var(--text-muted);">Aujourd'hui, 14:22</p>
-                                </div>
-                            </div>
-                            <span style="color: var(--accent-green); font-weight:500;">+$450.00</span>
-                        </div>
-
-                        <div class="history-item">
-                            <div class="history-info">
-                                <div class="icon-box up"><i class="fa-solid fa-arrow-up"></i></div>
-                                <div>
-                                    <p style="font-size: 0.9rem; font-weight:500;">Converti en GBP</p>
-                                    <p style="font-size: 0.75rem; color: var(--text-muted);">Hier, 09:15</p>
-                                </div>
-                            </div>
-                            <span style="color: #f87171; font-weight:500;">-200.00 €</span>
-                        </div>
-
-                        <div class="history-item">
-                            <div class="history-info">
-                                <div class="icon-box"><i class="fa-solid fa-arrow-down"></i></div>
-                                <div>
-                                    <p style="font-size: 0.9rem; font-weight:500;">Dépôt de compte</p>
-                                    <p style="font-size: 0.75rem; color: var(--text-muted);">04 Mai 2026</p>
-                                </div>
-                            </div>
-                            <span style="color: var(--accent-green); font-weight:500;">+1 250.00 €</span>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="card">
+                <div class="card-icon">📱</div>
+                <h3>Écosystème Android Fusionné</h3>
+                <p>Exécutez vos applications mobiles de manière totalement native, créez des widgets génératifs sur votre bureau et clonez votre smartphone d'un simple geste.</p>
             </div>
-        </main>
-    </div>
+        </div>
+    </section>
+
+    <section class="specs">
+        <h2>Spécifications techniques préliminaires</h2>
+        <table class="specs-table">
+            <tr>
+                <td>Système d'exploitation</td>
+                <td>Aluminium OS (Basé sur le noyau Android et l'expérience Desktop moderne)</td>
+            </tr>
+            <tr>
+                <td>Processeur</td>
+                <td>Puces optimisées IA de nouvelle génération (Partenaires constructeurs Premium)</td>
+            </tr>
+            <tr>
+                <td>Intégration IA</td>
+                <td>NPU haute performance dédié à Gemini Intelligence local et cloud</td>
+            </tr>
+            <tr>
+                <td>Disponibilité</td>
+                <td>Automne 2026 (Modèles construits par Acer, Asus, Dell, HP et Lenovo)</td>
+            </tr>
+        </table>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="#">À propos de Google</a>
+                <a href="#">Produits Google</a>
+                <a href="#">Confidentialité</a>
+                <a href="#">Conditions d'utilisation</a>
+            </div>
+            <div class="footer-bottom">
+                <div>France</div>
+                <div>© 2026 Google LLC. GoogleBook et Aluminium OS sont des marques de Google LLC.</div>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // Gestion des onglets de la barre latérale
-        const menuItems = document.querySelectorAll('.menu-item');
-        menuItems.forEach(item => {
-            item.addEventListener('click', () => {
-                menuItems.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
-            });
-        });
-
-        // Simulation simple de calcul de taux à la volée
-        const sendInput = document.getElementById('send-amount');
-        const receiveInput = document.getElementById('receive-amount');
-
-        sendInput.addEventListener('input', (e) => {
-            const val = parseFloat(e.target.value);
-            if(!isNaN(val)) {
-                // Taux fictif EUR -> USD (1.08)
-                receiveInput.value = (val * 1.08).toFixed(2);
-            } else {
-                receiveInput.value = '';
-            }
-        });
-
-        // Animation au clic sur le bouton d'échange (Simulation d'envoi)
-        const exchangeBtn = document.getElementById('btn-exchange');
-        const notif = document.getElementById('notif');
-
-        exchangeBtn.addEventListener('click', () => {
-            // Effet Feedback Bouton
-            exchangeBtn.style.transform = 'scale(0.98)';
-            setTimeout(() => { exchangeBtn.style.transform = 'none'; }, 100);
-
-            // Pop de la notification Glass
-            notif.classList.add('show');
-            
-            // Masquage de la notification après 3,5 secondes
+        function playVideoSimulation() {
+            const img = document.getElementById('showcase-img');
+            alert("Lancement de la présentation interactive du GoogleBook ! (Simulation)");
+            img.style.transform = "scale(1.1) rotate(2deg)";
             setTimeout(() => {
-                notif.classList.remove('show');
-            }, 3500);
-        });
+                img.style.transform = "translateY(20px) scale(1)";
+            }, 1000);
+        }
     </script>
 </body>
 </html>
