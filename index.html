@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoogleBook - L'ordinateur portable à l'ère de l'IA</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Truth Social - Fil d'actualité (Interface)</title>
     <style>
         :root {
-            --google-blue: #1a73e8;
-            --google-gray-dark: #202124;
-            --google-gray-light: #f8f9fa;
-            --google-gray-text: #5f6368;
-            --font-family: 'Google Sans', sans-serif;
+            --ts-blue: #1976d2;
+            --ts-bg: #15202b;
+            --ts-card-bg: #192734;
+            --ts-border: #38444d;
+            --ts-text-main: #ffffff;
+            --ts-text-muted: #8899a6;
         }
 
         * {
@@ -23,404 +21,423 @@
         }
 
         body {
-            font-family: var(--font-family);
-            color: var(--google-gray-dark);
-            background-color: #ffffff;
-            line-height: 1.5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--ts-bg);
+            color: var(--ts-text-main);
+            display: flex;
+            justify-content: center;
         }
 
-        /* Barre de navigation */
-        header {
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1250px;
+            min-height: 100vh;
+        }
+
+        /* --- BARRE LATÉRALE GAUCHE --- */
+        .sidebar-left {
+            width: 275px;
+            padding: 20px;
+            border-right: 1px solid var(--ts-border);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
             position: sticky;
             top: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid #e0e0e0;
-            z-index: 1000;
+            height: 100vh;
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--ts-blue);
+            text-decoration: none;
+            padding-left: 10px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            color: var(--ts-text-main);
+            text-decoration: none;
+            font-size: 19px;
+            font-weight: 700;
+            border-radius: 30px;
+            transition: background 0.2s;
+        }
+
+        .nav-item a:hover {
+            background-color: rgba(25, 118, 210, 0.1);
+            color: var(--ts-blue);
+        }
+
+        .btn-truth {
+            background-color: var(--ts-blue);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .btn-truth:hover {
+            background-color: #115293;
+        }
+
+        /* --- ZONE CENTRALE (FEED) --- */
+        .feed {
+            flex: 1;
+            max-width: 600px;
+            border-right: 1px solid var(--ts-border);
+        }
+
+        .feed-header {
+            position: sticky;
+            top: 0;
+            background-color: rgba(21, 32, 43, 0.9);
+            backdrop-filter: blur(5px);
+            padding: 15px;
+            border-bottom: 1px solid var(--ts-border);
+            z-index: 10;
+        }
+
+        .feed-header h2 {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        /* Zone de composition */
+        .composer {
+            padding: 15px;
+            border-bottom: 8px solid var(--ts-border);
+            display: flex;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--ts-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .composer-body {
+            flex: 1;
+        }
+
+        .composer-textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            resize: none;
+            color: var(--ts-text-main);
+            font-size: 18px;
+            font-family: inherit;
+            outline: none;
+            margin-top: 8px;
+            min-height: 60px;
+        }
+
+        .composer-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 24px;
+            margin-top: 15px;
+            border-top: 1px solid var(--ts-border);
+            padding-top: 10px;
         }
 
-        .logo-area {
+        /* Zone des publications (Posts) */
+        .posts-container {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 22px;
-            font-weight: 500;
-            color: var(--google-gray-dark);
+            flex-direction: column;
         }
 
-        .logo-area span {
+        .post {
+            padding: 15px;
+            border-bottom: 1px solid var(--ts-border);
+            display: flex;
+            gap: 12px;
+            transition: background 0.2s;
+        }
+
+        .post:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .post-content {
+            flex: 1;
+        }
+
+        .post-header {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+
+        .display-name {
             font-weight: 700;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 24px;
-            list-style: none;
+        .username, .timestamp {
+            color: var(--ts-text-muted);
         }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--google-gray-text);
+        .post-text {
             font-size: 15px;
-            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            white-space: pre-wrap;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            max-width: 400px;
+            color: var(--ts-text-muted);
+        }
+
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: var(--ts-text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
             transition: color 0.2s;
         }
 
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--google-blue);
+        .action-btn:hover {
+            color: var(--ts-blue);
         }
 
-        .cta-btn {
-            background-color: var(--google-blue);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            font-family: var(--font-family);
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.2s;
+        .action-btn.active-like {
+            color: #e0245e;
         }
 
-        .cta-btn:hover {
-            background-color: #1557b0;
+        .action-btn.active-retruth {
+            color: #17bf63;
         }
 
-        /* Section Hero (Introduction) */
-        .hero {
-            padding: 100px 24px 60px;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .badge {
-            background: #e8f0fe;
-            color: var(--google-blue);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 500;
-            display: inline-block;
-            margin-bottom: 24px;
-        }
-
-        .hero h1 {
-            font-size: 56px;
-            font-weight: 700;
-            line-height: 1.15;
-            margin-bottom: 24px;
-            letter-spacing: -1px;
-        }
-
-        .hero p {
-            font-size: 22px;
-            color: var(--google-gray-text);
-            margin-bottom: 40px;
-        }
-
-        /* Simulation de rendu de l'appareil ou vidéo */
-        .product-showcase {
-            max-width: 1000px;
-            margin: 0 auto 80px;
-            padding: 0 24px;
-        }
-
-        .video-placeholder {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: linear-gradient(135deg, #e3f2fd, #e8eaf6);
-            border-radius: 16px;
+        /* --- BARRE LATÉRALE DROITE --- */
+        .sidebar-right {
+            width: 350px;
+            padding: 20px;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            flex-direction: column;
+            gap: 15px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+        .widget {
+            background-color: var(--ts-card-bg);
+            border-radius: 16px;
+            padding: 15px;
+        }
+
+        .widget h3 {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .trend-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--ts-border);
             cursor: pointer;
         }
 
-        .video-placeholder img {
-            width: 70%;
-            height: auto;
-            transform: translateY(20px);
-            transition: transform 0.5s ease;
+        .trend-item:last-child {
+            border-bottom: none;
         }
 
-        .video-placeholder:hover img {
-            transform: translateY(10px) scale(1.02);
-        }
-
-        .play-icon {
-            position: absolute;
-            background: white;
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 2;
-        }
-
-        /* Section Caractéristiques (Grid) */
-        .features {
-            background-color: var(--google-gray-light);
-            padding: 80px 24px;
-        }
-
-        .section-title {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 60px;
-        }
-
-        .section-title h2 {
-            font-size: 36px;
-            margin-bottom: 16px;
-        }
-
-        .grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 32px;
-        }
-
-        .card {
-            background: white;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.06);
-        }
-
-        .card-icon {
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
-
-        .card h3 {
-            font-size: 22px;
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-
-        .card p {
-            color: var(--google-gray-text);
-            font-size: 16px;
-        }
-
-        /* Section Spécifications techniques */
-        .specs {
-            max-width: 900px;
-            margin: 80px auto;
-            padding: 0 24px;
-        }
-
-        .specs h2 {
-            font-size: 32px;
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .specs-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .specs-table tr {
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .specs-table td {
-            padding: 20px 0;
-            font-size: 16px;
-        }
-
-        .specs-table td:first-child {
-            font-weight: 500;
-            width: 30%;
-            color: var(--google-gray-dark);
-        }
-
-        .specs-table td:last-child {
-            color: var(--google-gray-text);
-        }
-
-        /* Pied de page (Footer) */
-        footer {
-            background-color: var(--google-gray-light);
-            border-top: 1px solid #e0e0e0;
-            padding: 40px 24px;
+        .trend-category {
             font-size: 13px;
-            color: var(--google-gray-text);
+            color: var(--ts-text-muted);
         }
 
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .trend-name {
+            font-weight: 700;
+            margin: 2px 0;
         }
 
-        .footer-links {
-            display: flex;
-            gap: 24px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+        /* Responsiveness basique */
+        @media (max-width: 1000px) {
+            .sidebar-right { display: none; }
         }
-
-        .footer-links a {
-            text-decoration: none;
-            color: var(--google-gray-text);
-        }
-
-        .footer-links a:hover {
-            color: var(--google-gray-dark);
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid #e0e0e0;
-            padding-top: 20px;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 38px; }
-            .hero p { font-size: 18px; }
-            .nav-links { display: none; } /* Version simplifiée pour mobile */
-            .specs-table td { display: block; width: 100% !important; padding: 8px 0; }
-            .specs-table tr { padding: 12px 0; display: block; }
+        @media (max-width: 700px) {
+            .sidebar-left { width: 70px; padding: 10px; align-items: center; }
+            .nav-item span, .btn-truth span, .logo span { display: none; }
+            .logo::after { content: 'T'; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="nav-container">
-            <div class="logo-area">
-                Google <span>Book</span>
-            </div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#" class="active">Présentation</a></li>
-                    <li><a href="#">Aluminium OS</a></li>
-                    <li><a href="#">Gemini Intelligence</a></li>
-                    <li><a href="#">Spécifications</a></li>
-                </ul>
-            </nav>
-            <button class="cta-btn" onclick="alert('Bientôt disponible à la précommande !')">En savoir plus</button>
-        </div>
-    </header>
+    <div class="container">
+        
+        <aside class="sidebar-left">
+            <a href="#" class="logo"><span>Truth</span></a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#">🏠 <span>Fil d'actualité</span></a></li>
+                <li class="nav-item"><a href="#">🔍 <span>Recherche</span></a></li>
+                <li class="nav-item"><a href="#">🔔 <span>Notifications</span></a></li>
+                <li class="nav-item"><a href="#">✉️ <span>Messages</span></a></li>
+                <li class="nav-item"><a href="#">👤 <span>Profil</span></a></li>
+            </ul>
+            <button class="btn-truth" onclick="focusComposer()"><span>Truth!</span></button>
+        </aside>
 
-    <section class="hero">
-        <span class="badge">Nouveau</span>
-        <h1>L'ordinateur portable réinventé par l'IA.</h1>
-        <p>Découvrez la puissance fusionnée d'Android et de Chrome OS au sein d'Aluminium OS. Conçu de A à Z autour de l'intelligence artificielle Gemini.</p>
-    </section>
+        <main class="feed">
+            <div class="feed-header">
+                <h2>Accueil</h2>
+            </div>
 
-    <section class="product-showcase">
-        <div class="video-placeholder" onclick="playVideoSimulation()">
-            <div class="play-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--google-blue)">
-                    <path d="M8 5v14l11-7z"/>
-                </svg>
+            <div class="composer">
+                <div class="avatar">M</div>
+                <div class="composer-body">
+                    <textarea class="composer-textarea" id="truth-input" placeholder="Qu'avez-vous à dire ? (Donnez votre Truth)"></textarea>
+                    <div class="composer-actions">
+                        <div>🖼️ 📊 ☺</div>
+                        <button class="btn-truth" style="width: auto; margin-top: 0; padding: 6px 20px;" onclick="postTruth()">Truth</button>
+                    </div>
+                </div>
             </div>
-            <img src="https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg" alt="Google Premium Hardware Design" id="showcase-img">
-        </div>
-    </section>
 
-    <section class="features">
-        <div class="section-title">
-            <h2>Une expérience ultra-personnalisée et proactive</h2>
-            <p>Le GoogleBook redéfinit votre espace de travail grâce à des fonctionnalités exclusives propulsées par Gemini Intelligence.</p>
-        </div>
+            <div class="posts-container" id="posts-feed">
+                <div class="post">
+                    <div class="avatar" style="background-color: #e0245e;">DJT</div>
+                    <div class="post-content">
+                        <div class="post-header">
+                            <span class="display-name">Donald J. Trump</span>
+                            <span class="username">@realDonaldTrump</span>
+                            <span class="timestamp">· 2h</span>
+                        </div>
+                        <div class="post-text">Bienvenue sur l'interface épurée de Truth Social ! Propulsée par un code moderne, rapide et réactif. L'avenir des réseaux sociaux est ici.</div>
+                        <div class="post-actions">
+                            <button class="action-btn" onclick="toggleAction(this, 'reply')">💬 <span>14k</span></button>
+                            <button class="action-btn" onclick="toggleAction(this, 'retruth')">🔁 <span>25k</span></button>
+                            <button class="action-btn" onclick="toggleAction(this, 'like')">❤️ <span>89k</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
 
-        <div class="grid">
-            <div class="card">
-                <div class="card-icon">🧠</div>
-                <h3>Gemini au Cœur du Système</h3>
-                <p>Une touche dédiée sur votre clavier vous permet de l'invoquer instantanément. Plus qu'un simple assistant, il anticipe vos besoins au quotidien.</p>
+        <aside class="sidebar-right">
+            <div class="widget">
+                <h3>Tendances pour vous</h3>
+                <div class="trend-item">
+                    <div class="trend-category">Technologie · Tendances</div>
+                    <div class="trend-name">#TruthSocialUpdate</div>
+                </div>
+                <div class="trend-item">
+                    <div class="trend-category">Politique · Tendances</div>
+                    <div class="trend-name">AluminiumOS</div>
+                </div>
+                <div class="trend-item">
+                    <div class="trend-category">Économie · Tendances</div>
+                    <div class="trend-name">#WebDevelopment</div>
+                </div>
             </div>
-            <div class="card">
-                <div class="card-icon">✨</div>
-                <h3>Magic Pointer</h3>
-                <p>Secouez ou pointez votre curseur pour analyser instantanément ce qui est affiché à l'écran : traduction, détourage d'images ou glisser-déposer intelligent.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">📱</div>
-                <h3>Écosystème Android Fusionné</h3>
-                <p>Exécutez vos applications mobiles de manière totalement native, créez des widgets génératifs sur votre bureau et clonez votre smartphone d'un simple geste.</p>
-            </div>
-        </div>
-    </section>
+        </aside>
 
-    <section class="specs">
-        <h2>Spécifications techniques préliminaires</h2>
-        <table class="specs-table">
-            <tr>
-                <td>Système d'exploitation</td>
-                <td>Aluminium OS (Basé sur le noyau Android et l'expérience Desktop moderne)</td>
-            </tr>
-            <tr>
-                <td>Processeur</td>
-                <td>Puces optimisées IA de nouvelle génération (Partenaires constructeurs Premium)</td>
-            </tr>
-            <tr>
-                <td>Intégration IA</td>
-                <td>NPU haute performance dédié à Gemini Intelligence local et cloud</td>
-            </tr>
-            <tr>
-                <td>Disponibilité</td>
-                <td>Automne 2026 (Modèles construits par Acer, Asus, Dell, HP et Lenovo)</td>
-            </tr>
-        </table>
-    </section>
-
-    <footer>
-        <div class="footer-container">
-            <div class="footer-links">
-                <a href="#">À propos de Google</a>
-                <a href="#">Produits Google</a>
-                <a href="#">Confidentialité</a>
-                <a href="#">Conditions d'utilisation</a>
-            </div>
-            <div class="footer-bottom">
-                <div>France</div>
-                <div>© 2026 Google LLC. GoogleBook et Aluminium OS sont des marques de Google LLC.</div>
-            </div>
-        </div>
-    </footer>
+    </div>
 
     <script>
-        function playVideoSimulation() {
-            const img = document.getElementById('showcase-img');
-            alert("Lancement de la présentation interactive du GoogleBook ! (Simulation)");
-            img.style.transform = "scale(1.1) rotate(2deg)";
-            setTimeout(() => {
-                img.style.transform = "translateY(20px) scale(1)";
-            }, 1000);
+        function focusComposer() {
+            document.getElementById('truth-input').focus();
+        }
+
+        // Fonction pour publier un message
+        function postTruth() {
+            const input = document.getElementById('truth-input');
+            const text = input.value.trim();
+            
+            if (text === "") {
+                alert("Votre message ne peut pas être vide !");
+                return;
+            }
+
+            const feed = document.getElementById('posts-feed');
+            
+            // Création de l'élément HTML du Post
+            const newPost = document.createElement('div');
+            newPost.className = 'post';
+            newPost.innerHTML = `
+                <div class="avatar" style="background-color: var(--ts-blue);">M</div>
+                <div class="post-content">
+                    <div class="post-header">
+                        <span class="display-name">Mon Compte</span>
+                        <span class="username">@mon_username</span>
+                        <span class="timestamp">· À l'instant</span>
+                    </div>
+                    <div class="post-text">${escapeHTML(text)}</div>
+                    <div class="post-actions">
+                        <button class="action-btn" onclick="toggleAction(this, 'reply')">💬 <span>0</span></button>
+                        <button class="action-btn" onclick="toggleAction(this, 'retruth')">🔁 <span>0</span></button>
+                        <button class="action-btn" onclick="toggleAction(this, 'like')">❤️ <span>0</span></button>
+                    </div>
+                </div>
+            `;
+
+            // Insérer au début du fil d'actualité
+            feed.insertBefore(newPost, feed.firstChild);
+            
+            // Réinitialiser le champ
+            input.value = "";
+        }
+
+        // Gestion basique des interactions (Like / Retruth)
+        function toggleAction(button, type) {
+            const span = button.querySelector('span');
+            let count = parseInt(span.innerText) || 0;
+
+            if (type === 'like') {
+                button.classList.toggle('active-like');
+                if (button.classList.contains('active-like')) {
+                    span.innerText = count + 1;
+                } else {
+                    span.innerText = Math.max(0, count - 1);
+                }
+            } else if (type === 'retruth') {
+                button.classList.toggle('active-retruth');
+                if (button.classList.contains('active-retruth')) {
+                    span.innerText = count + 1;
+                } else {
+                    span.innerText = Math.max(0, count - 1);
+                }
+            }
+        }
+
+        // Sécurisation des entrées textuelles contre les failles XSS
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
         }
     </script>
 </body>
